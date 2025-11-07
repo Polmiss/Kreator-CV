@@ -11,7 +11,7 @@ const totalSlides = slides.length;
 let currentIndex = Math.floor(totalSlides / 2);
 let isAnimating = false;
 
-// 🔹 Pozycjonowanie slajdów
+//   Pozycjonowanie slajdów
 function positionSlides(animate = true) {
   const middle = Math.floor(totalSlides / 2);
   const totalWidth = slideWidth + slideGap;
@@ -34,7 +34,7 @@ function positionSlides(animate = true) {
   });
 }
 
-// 🔹 Przesunięcie w prawo
+//   Przesunięcie w prawo
 function nextSlide() {
   if (isAnimating) return;
   isAnimating = true;
@@ -63,7 +63,7 @@ function nextSlide() {
   }, 400);
 }
 
-// 🔹 Przesunięcie w lewo
+// Przesunięcie w lewo
 function prevSlide() {
   if (isAnimating) return;
   isAnimating = true;
@@ -88,9 +88,27 @@ function prevSlide() {
   }, 400);
 }
 
-// 🔹 Eventy
+//   Eventy
 prevBtn.addEventListener("click", prevSlide);
 nextBtn.addEventListener("click", nextSlide);
 
-// 🔹 Start
+//   Start
 positionSlides(false);
+
+let lastScroll = 0;
+const header = document.querySelector('header');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    header.style.transform = 'translateY(-100%)';
+    header.style.transition = 'transform 0.3s ease';
+  } else {
+    header.style.transform = 'translateY(0)';
+    header.style.transition = 'transform 0.3s ease';
+  }
+
+  lastScroll = currentScroll;
+});
+
